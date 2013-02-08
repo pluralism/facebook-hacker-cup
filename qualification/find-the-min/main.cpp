@@ -1,14 +1,18 @@
 #include <iostream>
 #include <vector>
+#include <map>
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+using std::map;
 
 int escolherElemento(int n, int k, int a, int b, int c, int r)
 {
 	//Vetor que armazena os valores k
 	vector<int> valores_k;
+	//Mapa que contem o numero de k usados
+	map<int, int> k_usados;
 	//Variavel que contem o ultimo valor atribuido a k(inicialmente 0)
 	int anterior;
 	//Variavel que contem o proximo valor de k
@@ -27,6 +31,10 @@ int escolherElemento(int n, int k, int a, int b, int c, int r)
 		//O valor anterior e o k atual
 		anterior = _k;
 	}
+	
+	//Marcar os k usados...
+	for(vector<int>::size_type i = 0; i != valores_k.size(); i++)
+		k_usados[valores_k[i]]++;
 }
 
 
