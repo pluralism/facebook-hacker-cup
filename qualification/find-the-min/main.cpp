@@ -1,11 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <set>
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
 using std::map;
+using std::set;
 
 int escolherElemento(int n, int k, int a, int b, int c, int r)
 {
@@ -13,6 +15,8 @@ int escolherElemento(int n, int k, int a, int b, int c, int r)
 	vector<int> valores_k;
 	//Mapa que contem o numero de k usados
 	map<int, int> k_usados;
+	//Set que contem os k que ainda não foram utilizados(ordenados)
+	set<int> n_ordenados;
 	//Variavel que contem o ultimo valor atribuido a k(inicialmente 0)
 	int anterior;
 	//Variavel que contem o proximo valor de k
@@ -35,6 +39,11 @@ int escolherElemento(int n, int k, int a, int b, int c, int r)
 	//Marcar os k usados...
 	for(vector<int>::size_type i = 0; i != valores_k.size(); i++)
 		k_usados[valores_k[i]]++;
+		
+	//Adicionar ao set os k nao utilizados
+	for(int i = 0; i <= k; i++)
+		if(k_usados[i] == 0)
+			n_ordenados.insert(i);
 }
 
 
