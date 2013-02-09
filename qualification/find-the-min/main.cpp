@@ -9,6 +9,7 @@ using std::vector;
 using std::map;
 using std::set;
 
+
 int escolherElemento(int n, int k, int a, int b, int c, int r)
 {
 	//Vetor que armazena os valores k
@@ -21,6 +22,8 @@ int escolherElemento(int n, int k, int a, int b, int c, int r)
 	int anterior;
 	//Variavel que contem o proximo valor de k
 	int _k;
+	
+	int atual;
 	
 	//A primeira coisa a fazer no algoritmo é gerar os valores de K e armazenar num vetor
 	for(int i = 0; i < k; i++)
@@ -44,6 +47,21 @@ int escolherElemento(int n, int k, int a, int b, int c, int r)
 	for(int i = 0; i <= k; i++)
 		if(k_usados[i] == 0)
 			n_ordenados.insert(i);
+			
+	//Inicialmente ja sabemos quantos k existem, agora só temos
+	//que continuar com numeros entre k e n.
+	for(int i = k; i <= k + k; i++)
+	{
+		//Adicionar ao vetor o menor valor
+		valores_k.push_back(*n_ordenados.begin());
+		n_ordenados.erase(n_ordenados.begin());
+		k_usados[atual]++;
+		k_usados[valores_k[i - k]]--;
+		if(k_usados[valores_k[i - k]] == 0)
+			n_ordenados.insert(valores_k[i - k]);
+	}
+	
+	return valores_k[(n - k - 1) % (k + 1) + k];
 }
 
 
@@ -58,6 +76,7 @@ int main(int argc, char *argv[])
 	for(int i = 1; i <= T; i++)
 	{
 		cin >> n >> k >> a >> b >> c >> r;
+		cout << "Case #" << i << ": " << escolherElemento(n, k, a, b, c, r) << endl;
 	}
 	
 	return 0;
