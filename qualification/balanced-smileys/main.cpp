@@ -1,32 +1,49 @@
 #include <iostream>
 #include <string>
-using std::cout;
-using std::cin;
-using std::endl;
-using std::string;
-
+using namespace std;
 
 bool smileyBalancado(string s)
 {
-	bool balancado = false;
-	int abrir = 0, fechar = 0;
-	//Variavel que armazena o comprimento da string
-	int N = s.length();
+	int count = 0;
+	if(s.length() == 0) return true;
 	
-	//Case base: Se a string estiver vazia entao nao vale a pena prosseguir
-	if(N == 0) return true;
-	
-	
-	//Analisar cada um dos caracteres da string
-	for(int i = 0; i < N; i++)
+	for(int i = 0; i < s.length();)
 	{
-		if(s[i] == '(' && (i - 1) >= 0 && s[i - 1] != ':')
-			abrir++; //Se encontrar um ( entao algures na string tem que ser fechado
-			
+		if(s[i] == ':')
+		{
+			i += 2;
+			continue;
+		}
 		
+		if(s[i] == ')')
+			count--;
+			if(count < 0) return false;
+		
+		if(s[i] == '(')
+			count++;
+		
+		i++;
 	}
 	
-	return balancado;
+	if(count != 0)
+	{
+		count = 0;
+		for(int i = 0; i < s.length(); i++)
+		{
+			if(s[i] == ')')
+				count--;
+			
+			if(count < 0) return false;
+			
+			if(s[i] == '(')
+				count++;
+		}
+	} else return true;
+	
+	if(count == 0)
+		return true;
+	
+	return false;
 }
 
 
@@ -37,7 +54,6 @@ int main(int argc, char *argv[])
 	cin >> T;
 	cin.get(); //Para evitar uma falha de segmentacao
 	
-	//Para cada um dos T casos...
 	for(int i = 1; i <= T; i++)
 	{
 		string s;
